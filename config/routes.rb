@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     end
   end
   root "stories#index"
+  
+  get "/topstories", to: 'pages#topstories', as: 'topstories'
+  get "/randomstories", to: 'pages#randomstories', as: 'randomstories'
+  get "category/:id", to: 'categories#show', as: 'category'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
