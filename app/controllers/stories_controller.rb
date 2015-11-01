@@ -1,8 +1,8 @@
 class StoriesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :downvote, :upvote]
   
   def index
-    @stories = Story.all
+    @stories = Story.all.order(id: :desc).page(params[:page]).per(5)
   end
   
   def new
@@ -21,6 +21,18 @@ class StoriesController < ApplicationController
   
   def show
     @story = Story.find(params[:id])
+  end
+  
+  def upvote
+    @story = Story.find(params[:id])
+    @story.upvote_by(current_user)
+    redirect_to :back
+  end
+  
+  def downvote
+    @story = Story.find(params[:id])
+    @story.downvote_by(current_user)
+    redirect_to :back
   end
   
   private

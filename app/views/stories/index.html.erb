@@ -11,22 +11,12 @@
           <%= story.body %>
           <br>
           <br>
-          <a href="#" class="btn btn-warning btn-xs">That scared me</a><span class="text-warning"> (28)</span>
-          <a href="#" class="btn btn-success btn-xs">You wimp!</a><span class="text-success"> (1200)</span>
+          <%= link_to "That scared me", like_story_path(story), method: :put, class: "btn btn-warning btn-xs" %><span class="text-warning"> (<%= story.get_upvotes.size %>)</span>
+          <%= link_to "You wimp", dislike_story_path(story), method: :put, class: "btn btn-success btn-xs" %><span class="text-warning"> (<%= story.get_downvotes.size %>)</span>
           <a href="#" class="btn btn-link btn-xs">Comments</a><small><em>(300)</em></small>
           <span class="text-muted pull-right">Created by: <%= story.user.name %> on <%= story.created_at.strftime("%B %d, %Y at %I:%M%p") %></span>
         </div>
       <% end %>
-      
-      <ul class="pagination pull-right">
-        <li class="disabled"><a href="#">«</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">»</a></li>
-      </ul>
     </div>
 
     <div class="col-md-4 col-sm-12">
@@ -41,4 +31,8 @@
     </div>
     
   </div>
+</div>
+
+<div class="container">
+  <%= paginate @stories %>
 </div>
